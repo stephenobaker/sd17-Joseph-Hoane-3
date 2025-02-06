@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import cv2
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+cap = cv2.VideoCapture(0)
 
+if not cap.isOpened():
+    print("Error: Could not open webcam.")
+    exit()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+ret, frame = cap.read()
 
+if not ret:
+    print("Error: Could not read frame.")
+    exit()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+cv2.imshow('Captured Image', frame)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+cv2.imwrite('captured_image.jpg', frame)
+
+cv2.waitKey(0)
+
+cap.release()
+cv2.destroyAllWindows()
